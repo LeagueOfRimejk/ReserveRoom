@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+        background: #fff;
+        -webkit-box-shadow: 5px 6px 24px -7px rgba(66, 68, 90, 1);
+        -moz-box-shadow: 5px 6px 24px -7px rgba(66, 68, 90, 1);
+        box-shadow: 5px 6px 24px -7px rgba(66, 68, 90, 1);
+    }
+
+    .reserved {
+        display: flex;
+        flex-direction: column;
+        margin-right: 450px;
+    }
+
+    #data {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+    }
+
+    button,
+    input[type="submit"] {
+    background: white;
+    border-style: outset;
+    border-color: crimson;
+    border-width: 3px;
+    }
+
+    button:hover,
+    input[type="submit"]:hover {
+
+        letter-spacing: 1px;
+        font-size: 15px;
+        border-radius: 50px;
+
+    }
+
+    .buttons {
+        display: inline-flex;
+        justify-content: space-between;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+</style>
+
+<div class="container">
+<table border="5" cellpadding="5" bordercolor="crimson">
+
+    <tr bgcolor="lightgray">
+    <th>Nazwa Sali</th><th>Pojemnosc</th><th>Projektor</th><th>Usun</th>
+        <th>Zmien</th><th>Zarezerwuj</th>
+    </tr>
+
+
+    <tr>
+        <td>{{ room.name }}</td><td>{{ room.capacity }}</td>
+
+        {% if projector == 'd' %}
+            <td bgcolor="lightgreen">Dostepny</td>
+        {% else %}
+            <td bgcolor="red">Niedostepny</td>
+        {% endif %}
+
+        <td><button><a href="/room/delete/{{ room.pk }}">Usun sale</a></button></td>
+        <td><button><a href="/room/modify/{{ room.pk }}">Zmien dane</a></button></td>
+        <td><button><a href="/room/reserve/{{ room.pk }}">Zarezerwuj</a></button></td>
+    </tr>
+
+</table>
+
+    <div class="reserved">
+
+{% if reservations %}
+
+    <h2>Rezerwacje</h2>
+
+    <ul>
+        {% for reservation in reservations %}
+
+
+
+        <li>{{ reservation.date }}
+
+            <ul>
+            <li>{{ reservation.comment }}</li>
+            </ul>
+
+        </li>
+        <br>
+
+        {% endfor %}
+
+    </ul>
+        {% else %}
+            <h2>Brak Rezerwacji!</h2>
+        {% endif %}
+</div>
+
+    <div class="buttons">
+        <button><a href="/show/rooms/">Lista sal</a></button>
+        <button><a href="/room/new/">Dodaj sale</a></button>
+    </div>
+</div>
+
+{% endblock %}

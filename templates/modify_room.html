@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+.container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+        background: #fff;
+        -webkit-box-shadow: 5px 6px 24px -7px rgba(66, 68, 90, 1);
+        -moz-box-shadow: 5px 6px 24px -7px rgba(66, 68, 90, 1);
+        box-shadow: 5px 6px 24px -7px rgba(66, 68, 90, 1);
+    }
+
+    button,
+    input[type="submit"] {
+    background: white;
+    border-style: outset;
+    border-color: crimson;
+    border-width: 3px;
+    }
+
+    button:hover,
+    input[type="submit"]:hover {
+
+        letter-spacing: 1px;
+        font-size: 15px;
+        border-radius: 50px;
+
+    }
+
+</style>
+
+
+<div class="container">
+<form method="POST">
+
+    {% csrf_token %}
+
+    <input type="text" name="name" value="{{ room.name }}" placeholder="Podaj nazwe sali">
+    <input type="number" name="capacity" value="{{ room.capacity }}" placeholder="Podaj pojemnosc sali">
+
+    <input type="checkbox" id="true" name="projector" value="True">
+    <label for="true">Dostepny</label>
+
+    <input type="checkbox" id="false" name="projector" value="False">
+    <label for="false">Niedostepny</label>
+
+    <input type="submit" value="Zmien">
+
+
+
+
+</form>
+    <button><a href="/show/rooms/">Lista sal</a></button>
+</div>
+
+{% endblock %}
